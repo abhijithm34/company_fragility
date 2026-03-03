@@ -74,7 +74,19 @@ def _plot_predicted_vs_actual(y_true: np.ndarray, y_prob: np.ndarray, split_name
     plt.xlabel("Predicted probability of distress")
     plt.ylabel("Density")
     plt.title(f"Predicted vs Actual – {split_name}")
-    plt.legend(title="Actual label", labels=["0 (non-distress)", "1 (distress)"])
+
+    # Make sure legend labels correctly reflect class meaning
+    ax = plt.gca()
+    handles, labels = ax.get_legend_handles_labels()
+    label_map = {"0": "0 (non-distress)", "1": "1 (distress)"}
+    new_handles = []
+    new_labels = []
+    for h, lab in zip(handles, labels):
+        if lab in label_map:
+            new_handles.append(h)
+            new_labels.append(label_map[lab])
+    if new_handles:
+        ax.legend(new_handles, new_labels, title="Actual label")
     out_path = FIGURES_DIR / f"pred_vs_actual_{split_name.lower()}.png"
     plt.tight_layout()
     plt.savefig(out_path, dpi=150)
