@@ -8,9 +8,9 @@ from .config import FEATURE_COLS, ID_COLS, TARGET_COL
 def load_feature_dataset(path: Path) -> pd.DataFrame:
     """Load the engineered feature dataset and perform basic cleaning.
 
-    This uses only the synthetic_feature_dataset.csv you provided, which already
-    encodes the Altman-based distress label at t+4 (Stress_Label) using
-    present-time financial and macro features at t.
+    This is typically the generated dataset at data/processed/feature_dataset_from_raw.csv,
+    which encodes the Altman-based distress label at t+4 (Stress_Label) using
+    features available at time t.
     """
     df = pd.read_csv(path)
 

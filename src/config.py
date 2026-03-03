@@ -5,8 +5,10 @@ from typing import List
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # Data files (using your provided synthetic datasets)
-FEATURE_DATA_FILE: Path = PROJECT_ROOT / "synthetic_feature_dataset.csv"
 RAW_FINANCIALS_FILE: Path = PROJECT_ROOT / "synthetic_raw_financials.csv"
+# Dataset built from raw financials (generated automatically by train script)
+DATA_PROCESSED_DIR: Path = PROJECT_ROOT / "data" / "processed"
+FEATURE_DATA_FROM_RAW_FILE: Path = DATA_PROCESSED_DIR / "feature_dataset_from_raw.csv"
 
 # Where to save trained models and metadata
 MODELS_DIR: Path = PROJECT_ROOT / "models"
