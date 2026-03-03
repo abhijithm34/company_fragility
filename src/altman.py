@@ -1,15 +1,4 @@
-"""
-Altman Z-score computation for corporate financial distress.
-
-Classic manufacturing formula:
-  Z = 1.2*(WC/TA) + 1.4*(RE/TA) + 3.3*(EBIT/TA) + 0.6*(MVE/TL) + 1.0*(Sales/TA)
-where:
-  WC  = Working Capital = Current_Assets - Current_Liabilities
-  TA  = Total_Assets
-  RE  = Retained_Earnings
-  MVE = Market_Cap (market value of equity)
-  TL  = Total_Liabilities
-"""
+"""Altman Z-score computations for corporate financial distress."""
 import numpy as np
 import pandas as pd
 

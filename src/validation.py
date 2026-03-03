@@ -1,9 +1,6 @@
-"""
-Time-series cross-validation and calibration helpers.
-"""
+"""Time-series cross-validation utilities."""
 import numpy as np
 import pandas as pd
-from sklearn.calibration import CalibratedClassifierCV
 from sklearn.metrics import accuracy_score, average_precision_score, roc_auc_score
 
 from .config import FEATURE_COLS, TARGET_COL
@@ -46,7 +43,7 @@ def run_time_series_cv(
     model_builder,
     n_splits: int = 5,
 ) -> dict:
-    """Run time-series CV; return dict of aggregate metrics (mean ± std)."""
+    """Run time-series CV and return aggregate metrics."""
     splits = time_series_cv_splits(df, n_splits=n_splits)
     if not splits:
         return {}
@@ -78,10 +75,3 @@ def run_time_series_cv(
         "pr_auc_std": float(np.std(prs)),
         "n_folds": len(accs),
     }
-
-
-def calibrate_model(model, X_cal: np.ndarray, y_cal: np.ndarray, method: str = "sigmoid"):
-    """Wrap model in CalibratedClassifierCV fitted on (X_cal, y_cal)."""
-    cal = CalibratedClassifierCV(model, method=method, cv="prefit")
-    cal.fit(X_cal, y_cal)
-    return cal

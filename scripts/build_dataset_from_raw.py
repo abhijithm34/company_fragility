@@ -1,14 +1,4 @@
-"""
-Build a feature dataset and Stress_Label from raw financials.
-
-- Loads synthetic_raw_financials.csv.
-- Computes Altman Z for each row; then for each (Company, Quarter t) assigns
-  Stress_Label = 1 if Altman Z at t+4 < 1.8, else 0 (drops rows with no t+4).
-- Builds features at t from raw financials at t (Altman-like ratios + OCF_TA,
-  Interest_Coverage, Debt_Assets; Repo_Rate and Leverage_Repo use constants
-  when macro is not in raw).
-- Saves to data/processed/feature_dataset_from_raw.csv.
-"""
+"""Build a feature dataset and Stress_Label from raw financials."""
 import sys
 from pathlib import Path
 
@@ -38,7 +28,7 @@ DEFAULT_LEVERAGE_REPO = 1.5
 
 
 def build_features_at_t(df: pd.DataFrame) -> pd.DataFrame:
-    """Add feature columns from raw financials (same schema as synthetic_feature_dataset)."""
+    """Add feature columns from raw financials."""
     out = df.copy()
     ta = out["Total_Assets"]
     tl = out["Total_Liabilities"]

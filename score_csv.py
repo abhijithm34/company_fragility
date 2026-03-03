@@ -1,19 +1,4 @@
-"""
-Score a CSV of next-quarter data with the trained XGBoost model.
-
-Usage:
-  python score_csv.py --input inputs.csv --output output.csv
-
-Input CSV may be either:
-- Already-engineered feature data (must include FEATURE_COLS), or
-- Raw financial data with the same columns as synthetic_raw_financials.csv
-  (Sales, Total_Assets, Total_Liabilities, Short_Term_Debt, Long_Term_Debt,
-   EBIT, Interest_Expense, Operating_Cash_Flow, Market_Cap, Retained_Earnings,
-   Current_Assets, Current_Liabilities), in which case features are computed
-  on the fly using the same formulas as the training pipeline.
-
-Output CSV adds predicted_probability and predicted_label.
-"""
+"""Score a CSV of next-quarter data with the trained XGBoost model."""
 import argparse
 import pickle
 from pathlib import Path

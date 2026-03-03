@@ -4,8 +4,7 @@ from typing import List
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# Data files (using your provided synthetic datasets)
-RAW_FINANCIALS_FILE: Path = PROJECT_ROOT / "synthetic_raw_financials.csv"
+RAW_FINANCIALS_FILE: Path = PROJECT_ROOT / "raw_financials.csv"
 # Dataset built from raw financials (generated automatically by train script)
 DATA_PROCESSED_DIR: Path = PROJECT_ROOT / "data" / "processed"
 FEATURE_DATA_FROM_RAW_FILE: Path = DATA_PROCESSED_DIR / "feature_dataset_from_raw.csv"
@@ -21,7 +20,6 @@ FEATURES_FILE: Path = MODELS_DIR / "fragility_model_features.txt"
 FIGURES_DIR: Path = PROJECT_ROOT / "figures"
 FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 
-# Column definitions matching synthetic_feature_dataset.csv
 ID_COLS: List[str] = ["Company", "Quarter"]
 
 FEATURE_COLS: List[str] = [

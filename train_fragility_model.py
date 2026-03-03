@@ -1,19 +1,8 @@
-"""
-Corporate Fragility Early Warning – ML Pipeline
-
-End-to-end pipeline: preprocessing → train/test split → XGBoost training →
-evaluation → model persistence. All metrics printed to terminal.
-
-Options:
-  --data PATH    Override the feature CSV path (default: auto-built from raw).
-  --tune         Run time-series CV with hyperparameter grid; use best params.
-  --calibrate    Fit probability calibration (sigmoid) on train holdout; save calibrated model.
-"""
+"""End-to-end training and evaluation pipeline for the corporate fragility model."""
 import argparse
 import pickle
 
 import numpy as np
-from sklearn.linear_model import LogisticRegression
 import subprocess
 from pathlib import Path
 
@@ -28,18 +17,7 @@ from src.data_loading import load_feature_dataset
 from src.evaluation import evaluate_model
 from src.models import build_xgb_model
 from src.splitting import time_based_train_test_split
-from src.validation import run_time_series_cv, time_series_cv_splits
-
-
-class _CalibratedModel:
-    """Wrapper that applies Platt scaling to base model probabilities."""
-    def __init__(self, base, platt):
-        self.base = base
-        self.platt = platt
-    def predict_proba(self, X):
-        p = self.base.predict_proba(X)[:, 1].reshape(-1, 1)
-        p_cal = self.platt.predict_proba(p)[:, 1]
-        return np.column_stack([1 - p_cal, p_cal])
+from src.validation import run_time_series_cv
 
 
 def save_model(model, feature_cols) -> None:
@@ -90,7 +68,6 @@ def main():
         help="Path to feature CSV (optional). If omitted, dataset is built from raw automatically.",
     )
     parser.add_argument("--tune", action="store_true", help="Run time-series CV hyperparameter tuning.")
-    parser.add_argument("--calibrate", action="store_true", help="Fit probability calibration; save calibrated model.")
     args = parser.parse_args()
 
     # Default: always use the dataset generated from raw financials
@@ -157,24 +134,11 @@ def main():
     print(f"  Test samples:  {len(X_test)}")
     print(f"  Cutoff quarter: {cutoff}")
 
-    # Step 3: Model training (and optional calibration)
+    # Step 3: Model training
     print("\n[STEP 3] XGBoost model training")
     print("-" * 40)
     model = build_xgb_model(y_train, param_overrides=best_params)
-    if args.calibrate:
-        n_cal = max(100, len(X_train) // 5)
-        X_tr, X_cal = X_train[:-n_cal], X_train[-n_cal:]
-        y_tr, y_cal = y_train[:-n_cal], y_train[-n_cal:]
-        model.fit(X_tr, y_tr)
-        print("\n[STEP 3b] Probability calibration (Platt scaling on holdout)")
-        print("-" * 40)
-        p_cal = model.predict_proba(X_cal)[:, 1].reshape(-1, 1)
-        platt = LogisticRegression(C=1e10, max_iter=1000)
-        platt.fit(p_cal, y_cal)
-        model = _CalibratedModel(model, platt)
-        print("  Calibration complete.")
-    else:
-        model.fit(X_train, y_train)
+    model.fit(X_train, y_train)
     print("  Training complete.")
 
     # Step 4: Evaluation (metrics to terminal)
