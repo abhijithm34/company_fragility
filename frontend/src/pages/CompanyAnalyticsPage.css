@@ -1,0 +1,588 @@
+/* ───────────────────────────────────────────────────────
+   Company Analytics Dashboard – Screener-inspired Design
+   Matches Screener.in's Inter font, HSL palette, cards, 
+   and spacing conventions
+   ─────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Screener Color Tokens ────────────────────────── */
+  --base-hsl: 0, 0%, 100%;
+  --ca-black: hsl(240, 16%, 16%);
+  --ca-white: hsl(0, 0%, 100%);
+  --ca-base: var(--ca-white);
+  --ca-page-base: hsl(218, 34%, 96%);
+  --ca-page-gradient: linear-gradient(177deg, hsla(218, 36%, 93%, 0.64) 29%, hsla(0, 0%, 100%, 0.64) 150%);
+
+  --ca-ink-900: var(--ca-black);
+  --ca-ink-700: hsl(207, 12%, 43%);
+  --ca-ink-600: hsla(207, 12%, 43%, 0.8);
+
+  --ca-link: hsl(243, 93%, 67%);
+  --ca-link-hover: hsl(243, 96%, 67%);
+
+  --ca-border-color: hsla(216, 41%, 87%, 0.8);
+  --ca-partition: hsl(223, 33%, 96%);
+  --ca-stripes: hsl(245, 40%, 98%);
+  --ca-lines: hsl(215, 42%, 90%);
+
+  --ca-pros: hsl(163, 70%, 70%);
+  --ca-pros-bg: hsl(163, 50%, 95%);
+  --ca-cons: hsl(360, 73%, 83%);
+  --ca-cons-bg: hsl(360, 60%, 97%);
+  --ca-up: hsl(89, 89%, 38%);
+  --ca-down: hsl(0, 89%, 63%);
+
+  --ca-red: hsl(10, 94%, 44%);
+  --ca-success: hsl(89, 89%, 38%);
+  --ca-danger: hsl(0, 89%, 63%);
+
+  --ca-bg-light-blue: hsla(236, 96%, 70%, 0.08);
+
+  /* ── Spacing ──────────────────────────────────────── */
+  --ca-margin-tiny: 6px;
+  --ca-margin-small: 12px;
+  --ca-margin-medium: 20px;
+  --ca-margin-large: 30px;
+  --ca-margin-xlarge: 60px;
+
+  /* ── Typography ───────────────────────────────────── */
+  --ca-letter-spacing: -0.011em;
+  --ca-letter-spacing-sm: -0.009em;
+  --ca-font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* ── Card ──────────────────────────────────────────── */
+  --ca-card-shadow: 0 16px 20px -24px hsla(219, 37%, 18%, 0.24);
+  --ca-card-radius: 8px;
+}
+
+/* ── Page Container ────────────────────────────────── */
+
+.ca-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ca-margin-medium);
+  font-family: 'Inter var', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  letter-spacing: var(--ca-letter-spacing);
+  line-height: 1.56;
+  color: var(--ca-ink-900);
+  animation: ca-fadeIn 0.35s ease-out;
+}
+
+@keyframes ca-fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Company Header ────────────────────────────────── */
+
+.ca-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ca-margin-medium);
+  flex-wrap: wrap;
+  padding-bottom: var(--ca-margin-medium);
+  border-bottom: 1.5px solid var(--ca-border-color);
+}
+
+.ca-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--ca-margin-medium);
+  flex: 1;
+  min-width: 0;
+}
+
+.ca-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ca-company-name {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ca-ink-900);
+  line-height: 1.2;
+}
+
+.ca-header-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--ca-margin-small);
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.ca-header-meta-item {
+  font-size: 0.875rem;
+  color: var(--ca-ink-700);
+  letter-spacing: var(--ca-letter-spacing-sm);
+}
+
+.ca-header-meta-item strong {
+  color: var(--ca-ink-900);
+  font-weight: 600;
+}
+
+.ca-header-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--ca-border-color);
+}
+
+.ca-header-prob {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-family: var(--ca-font-mono);
+  letter-spacing: -0.02em;
+}
+
+.ca-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ── Buttons (Screener-style) ──────────────────────── */
+
+.ca-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  border: 1px solid hsla(0, 0%, 59%, 0.5);
+  background: var(--ca-base);
+  color: var(--ca-ink-700);
+  text-transform: uppercase;
+}
+
+.ca-btn:hover {
+  border-color: var(--ca-ink-700);
+  color: var(--ca-ink-900);
+}
+
+.ca-btn-primary {
+  background: var(--ca-link);
+  color: #fff;
+  border-color: transparent;
+}
+
+.ca-btn-primary:hover {
+  background: var(--ca-link-hover);
+}
+
+/* ── Risk Gauge ────────────────────────────────────── */
+
+.ca-gauge-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.ca-gauge-svg {
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+
+.ca-gauge-bg {
+  fill: none;
+  stroke: var(--ca-lines);
+  stroke-width: 6;
+}
+
+.ca-gauge-fill {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.2s ease-out, stroke 0.4s ease;
+}
+
+.ca-gauge-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: var(--ca-font-mono);
+  color: var(--ca-ink-900);
+}
+
+/* ── Analytics Card (Screener .card style) ─────────── */
+
+.ca-card {
+  background: var(--ca-base);
+  border: 1.5px solid var(--ca-border-color);
+  border-radius: var(--ca-card-radius);
+  box-shadow: var(--ca-card-shadow);
+  padding: 12px 24px 16px;
+}
+
+.ca-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--ca-margin-small);
+  padding-bottom: var(--ca-margin-small);
+  border-bottom: 1.5px solid var(--ca-border-color);
+}
+
+.ca-card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: var(--ca-letter-spacing-sm);
+  color: var(--ca-ink-900);
+}
+
+.ca-card-subtitle {
+  margin: 3px 0 0;
+  font-size: 0.8125rem;
+  color: var(--ca-ink-600);
+}
+
+.ca-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── Two-Column Layout ─────────────────────────────── */
+
+.ca-grid-2 {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--ca-margin-medium);
+  align-items: start;
+}
+
+.ca-grid-equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ca-margin-medium);
+}
+
+/* ── Metrics Table (Screener #top-ratios style) ────── */
+
+.ca-metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+}
+
+.ca-metrics-table tr {
+  border-bottom: 1.5px solid var(--ca-border-color);
+}
+
+.ca-metrics-table tr:last-child {
+  border-bottom: none;
+}
+
+.ca-metrics-table tr:hover {
+  background: var(--ca-stripes);
+}
+
+.ca-metrics-table td {
+  padding: 9px 0;
+  font-size: 0.9375rem;
+  letter-spacing: var(--ca-letter-spacing-sm);
+}
+
+.ca-metrics-table td:first-child {
+  color: var(--ca-ink-700);
+  font-weight: 500;
+  padding-right: 12px;
+}
+
+.ca-metrics-table td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--ca-ink-900);
+  font-family: var(--ca-font-mono);
+  font-size: 0.875rem;
+}
+
+/* ── Chart Section ─────────────────────────────────── */
+
+.ca-chart-container {
+  width: 100%;
+  min-width: 280px;
+  margin-top: var(--ca-margin-small);
+}
+
+.ca-chart-filters {
+  display: flex;
+  gap: 4px;
+}
+
+.ca-chart-filter-btn {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--ca-border-color);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ca-ink-700);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ca-chart-filter-btn:hover {
+  background: var(--ca-partition);
+  color: var(--ca-ink-900);
+}
+
+.ca-chart-filter-btn.active {
+  background: var(--ca-link);
+  color: #fff;
+  border-color: var(--ca-link);
+}
+
+/* ── Custom Recharts Tooltip ───────────────────────── */
+
+.ca-tooltip {
+  background: var(--ca-base);
+  border: 1.5px solid var(--ca-border-color);
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 8px 24px hsla(219, 37%, 18%, 0.15);
+}
+
+.ca-tooltip-label {
+  font-size: 0.6875rem;
+  color: var(--ca-ink-600);
+  margin: 0 0 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ca-tooltip-value {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ca-ink-900);
+  margin: 0;
+  font-family: var(--ca-font-mono);
+}
+
+/* ── Pros & Cons Panel (Screener style) ────────────── */
+
+.ca-proscons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ca-margin-large);
+}
+
+.ca-proscons-col {
+  padding: 0;
+}
+
+.ca-proscons-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin: 0 0 var(--ca-margin-small);
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--ca-border-color);
+}
+
+.ca-proscons-title.pros {
+  color: var(--ca-up);
+}
+
+.ca-proscons-title.cons {
+  color: var(--ca-down);
+}
+
+.ca-proscons-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ca-proscons-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--ca-ink-900);
+  line-height: 1.5;
+  padding: 9px 0;
+  border-bottom: 1.5px solid var(--ca-border-color);
+  letter-spacing: var(--ca-letter-spacing-sm);
+}
+
+.ca-proscons-item:last-child {
+  border-bottom: none;
+}
+
+.ca-proscons-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.625rem;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.ca-proscons-icon.pro {
+  background: var(--ca-pros-bg);
+  color: var(--ca-up);
+}
+
+.ca-proscons-icon.con {
+  background: var(--ca-cons-bg);
+  color: var(--ca-down);
+}
+
+.ca-proscons-empty {
+  font-size: 0.875rem;
+  color: var(--ca-ink-600);
+  font-style: italic;
+  padding: 9px 0;
+}
+
+/* ── Financial Indicator Mini Cards ────────────────── */
+
+.ca-indicator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--ca-margin-medium);
+}
+
+/* ── Loading & Error States ────────────────────────── */
+
+.ca-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: var(--ca-margin-small);
+}
+
+.ca-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2.5px solid var(--ca-lines);
+  border-top-color: var(--ca-link);
+  border-radius: 50%;
+  animation: ca-spin 0.7s linear infinite;
+}
+
+@keyframes ca-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ca-loading-text {
+  font-size: 0.875rem;
+  color: var(--ca-ink-600);
+}
+
+.ca-error {
+  padding: 24px;
+  text-align: center;
+}
+
+.ca-error-msg {
+  color: var(--ca-red);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  margin: 0 0 8px;
+}
+
+/* ── Section Divider ───────────────────────────────── */
+
+.ca-section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ca-ink-600);
+  margin: 0;
+}
+
+.ca-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: var(--ca-border-color);
+}
+
+/* ── Responsive ────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .ca-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .ca-header {
+    flex-direction: column;
+    gap: var(--ca-margin-small);
+  }
+
+  .ca-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .ca-proscons {
+    grid-template-columns: 1fr;
+  }
+
+  .ca-grid-equal {
+    grid-template-columns: 1fr;
+  }
+
+  .ca-company-name {
+    font-size: 1.35rem;
+  }
+
+  .ca-card {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ca-header-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ca-gauge-container {
+    align-self: center;
+  }
+}

@@ -1,12 +1,34 @@
-"""Score a CSV of next-quarter data with the trained XGBoost model."""
+"""Score a CSV of next-quarter data with the trained XGBoost model.
+Outputs predicted probability, label, and SHAP feature contributions per row.
+"""
 import argparse
 import pickle
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import shap
 
 from src.config import FEATURE_COLS, FEATURES_FILE, MODEL_FILE
+
+# Risk category tiers by predicted probability (upper bound exclusive, last tier inclusive)
+RISK_TIERS = [
+    (0.2, "Very Safe"),
+    (0.4, "Low Risk"),
+    (0.6, "Moderate Risk"),
+    (0.8, "High Risk"),
+    (1.01, "Severe Risk"),
+]
+
+
+def risk_category_from_probability(p: float) -> str:
+    """Map predicted probability to risk category label."""
+    if np.isnan(p):
+        return "Unknown"
+    for upper, label in RISK_TIERS:
+        if p < upper:
+            return label
+    return RISK_TIERS[-1][1]
 
 
 RAW_COLS = [
@@ -108,9 +130,29 @@ def main():
     proba = model.predict_proba(X)[:, 1]
     pred = (proba >= 0.5).astype(int)
 
+    # SHAP contributions for model explainability (contribution to P(distress))
+    try:
+        explainer = shap.TreeExplainer(model)
+        shap_vals = explainer.shap_values(X)
+        # Binary classifier: shap_vals can be (n_samples, n_features) for class 1
+        if isinstance(shap_vals, list):
+            shap_vals = shap_vals[1] if len(shap_vals) > 1 else shap_vals[0]
+        shap_vals = np.asarray(shap_vals)
+        if shap_vals.ndim == 3:
+            shap_vals = shap_vals[:, 1, :]
+        for i, col in enumerate(expected_features):
+            if i < shap_vals.shape[1]:
+                out_col = f"shap_{col}"
+                df[out_col] = np.round(shap_vals[:, i], 6)
+    except Exception as e:
+        print(f"SHAP explanation skipped: {e}")
+
+    risk_categories = np.array([risk_category_from_probability(pr) for pr in proba])
+
     out_df = df.copy()
     out_df["predicted_probability"] = proba
     out_df["predicted_label"] = pred
+    out_df["risk_category"] = risk_categories
     out_df.to_csv(out, index=False)
     print(f"Saved {len(out_df)} rows to {out}")
 
