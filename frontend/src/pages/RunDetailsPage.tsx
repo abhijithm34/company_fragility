@@ -208,7 +208,7 @@ export function RunDetailsPage() {
                 Click a company name to view its risk profile and detailed model explanation.
                 {Object.keys(rows.rows[0]).some((k) => k.startsWith('shap_')) && (
                   <span style={{ color: '#059669', display: 'block', marginTop: '0.25rem' }}>
-                    ✨ SHAP feature contributions are available for this run.
+                    SHAP feature contributions are available for this run.
                   </span>
                 )}
               </p>

@@ -98,7 +98,7 @@ export function RiskHeatmapPage() {
         <header className="ca-header">
           <h2 className="ca-company-name">Risk Variations Dashboard</h2>
         </header>
-        <DashboardCard title="Error" icon="⚠" iconBg="rgba(220,38,38,0.08)">
+        <DashboardCard title="Error" iconBg="rgba(220,38,38,0.08)">
           <p className="ca-error-msg">{error}</p>
         </DashboardCard>
       </div>
@@ -111,7 +111,7 @@ export function RiskHeatmapPage() {
         <header className="ca-header">
           <h2 className="ca-company-name">Risk Variations Dashboard</h2>
         </header>
-        <DashboardCard title="No Data" icon="ℹ" iconBg="rgba(37,99,235,0.08)">
+        <DashboardCard title="No Data" iconBg="rgba(37,99,235,0.08)">
           <p className="ca-error-msg" style={{ color: 'var(--ca-ink-600)' }}>
             No scored companies found. Upload and score a dataset first.
           </p>
@@ -181,7 +181,6 @@ export function RiskHeatmapPage() {
       {filteredData && (
         <DashboardCard
           title={tabs.find((t) => t.id === activeTab)?.label ?? 'Visualization'}
-          icon="📊"
           iconBg="hsla(236, 96%, 70%, 0.08)"
           noPadding={activeTab === 'heatmap' || activeTab === 'composition' || activeTab === 'offenders' || activeTab === 'trajectories'}
         >

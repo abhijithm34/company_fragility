@@ -8,13 +8,13 @@ export function ProsConsPanel({ pros, cons }: ProsConsPanelProps) {
     <div className="ca-proscons">
       <div className="ca-proscons-col">
         <h4 className="ca-proscons-title pros">
-          <span style={{ fontSize: '1.1rem' }}>✦</span> Strengths
+          Strengths
         </h4>
         {pros.length > 0 ? (
           <ul className="ca-proscons-list">
             {pros.map((p, i) => (
               <li key={i} className="ca-proscons-item">
-                <span className="ca-proscons-icon pro">✓</span>
+                <span className="ca-proscons-icon pro">+</span>
                 <span>{p}</span>
               </li>
             ))}
@@ -26,13 +26,13 @@ export function ProsConsPanel({ pros, cons }: ProsConsPanelProps) {
 
       <div className="ca-proscons-col">
         <h4 className="ca-proscons-title cons">
-          <span style={{ fontSize: '1.1rem' }}>⚠</span> Risk Factors
+          Risk Factors
         </h4>
         {cons.length > 0 ? (
           <ul className="ca-proscons-list">
             {cons.map((c, i) => (
               <li key={i} className="ca-proscons-item">
-                <span className="ca-proscons-icon con">✕</span>
+                <span className="ca-proscons-icon con">-</span>
                 <span>{c}</span>
               </li>
             ))}

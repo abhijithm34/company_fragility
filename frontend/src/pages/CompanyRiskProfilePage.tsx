@@ -152,7 +152,7 @@ export function CompanyRiskProfilePage() {
         <header className="ca-header">
           <div className="ca-header-left"><div className="ca-header-info"><h2 className="ca-company-name">Company Analytics</h2></div></div>
         </header>
-        <DashboardCard title="Error" icon="⚠" iconBg="rgba(220,38,38,0.08)">
+        <DashboardCard title="Error" iconBg="rgba(220,38,38,0.08)">
           <p className="ca-error-msg">{error}</p>
           <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
             No scored data found for this company. Run scoring from the Upload &amp; Score page first.
@@ -248,7 +248,7 @@ export function CompanyRiskProfilePage() {
               {latest.isHighRisk && (
                 <>
                   <span className="ca-header-divider" />
-                  <span style={{ fontSize: '0.82rem', color: '#dc2626', fontWeight: 600 }}>⚠ High Risk</span>
+                  <span style={{ fontSize: '0.82rem', color: '#dc2626', fontWeight: 600 }}>High Risk</span>
                 </>
               )}
             </div>
@@ -265,7 +265,6 @@ export function CompanyRiskProfilePage() {
         <DashboardCard
           title="Key Risk Metrics"
           subtitle="Model-derived financial indicators"
-          icon="📊"
           iconBg="hsla(236, 96%, 70%, 0.08)"
         >
           <MetricsTable metrics={metricsData} />
@@ -275,7 +274,6 @@ export function CompanyRiskProfilePage() {
         <DashboardCard
           title="Risk Probability Trend"
           subtitle="Fragility probability over time"
-          icon="📈"
           iconBg="hsla(163, 70%, 70%, 0.12)"
           headerRight={
             probabilityHistory.length > 4 ? (
@@ -362,7 +360,6 @@ export function CompanyRiskProfilePage() {
               ? 'SHAP contributions — which variables most influenced this prediction'
               : 'Features compared to historical benchmarks'
           }
-          icon="🔬"
           iconBg="rgba(99, 102, 241, 0.08)"
         >
           <p className="ca-section-label" style={{ marginBottom: '0.5rem' }}>
@@ -468,7 +465,6 @@ export function CompanyRiskProfilePage() {
       <DashboardCard
         title="Risk Assessment Summary"
         subtitle="Based on model feature analysis"
-        icon="💡"
         iconBg="rgba(234, 179, 8, 0.08)"
       >
         <ProsConsPanel pros={pros} cons={cons} />
@@ -482,11 +478,11 @@ export function CompanyRiskProfilePage() {
           <p className="ca-section-label">Financial Indicator Trends</p>
           <div className="ca-indicator-grid">
             {([
-              { key: 'leverage' as const, label: 'Leverage (Debt/Assets)', color: '#7c3aed', icon: '⚖' },
-              { key: 'liquidity' as const, label: 'Liquidity (WC/Assets)', color: '#059669', icon: '💧' },
-              { key: 'profitability' as const, label: 'Profitability (EBIT)', color: '#d97706', icon: '💰' },
-              { key: 'cashFlow' as const, label: 'Cash Flow / Assets', color: '#0284c7', icon: '📤' },
-            ] as const).map(({ key, label, color, icon }) => {
+              { key: 'leverage' as const, label: 'Leverage (Debt/Assets)', color: '#7c3aed' },
+              { key: 'liquidity' as const, label: 'Liquidity (WC/Assets)', color: '#059669' },
+              { key: 'profitability' as const, label: 'Profitability (EBIT)', color: '#d97706' },
+              { key: 'cashFlow' as const, label: 'Cash Flow / Assets', color: '#0284c7' },
+            ] as const).map(({ key, label, color }) => {
               const chartData = financialIndicatorHistory.map((p: any, i: number, arr: any[]) => ({
                 quarter: p.quarter,
                 value: p[key] ?? (i > 0 ? (arr[i - 1][key] ?? 0) : 0),
@@ -496,7 +492,7 @@ export function CompanyRiskProfilePage() {
                   ? [chartData[0], { ...chartData[0], quarter: chartData[0].quarter + ' ' }]
                   : chartData
               return (
-                <DashboardCard key={key} title={label} icon={icon} iconBg={`${color}14`}>
+                <DashboardCard key={key} title={label} iconBg={`${color}14`}>
                   <div className="ca-chart-container" style={{ height: 160 }}>
                     <ResponsiveContainer width="100%" height={160}>
                       <AreaChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>

@@ -63,7 +63,6 @@ export function FilterPanel({ availableCompanies = [], availableQuarters = [], h
   return (
     <DashboardCard 
       title="Global Filters" 
-      icon="⧉" 
       iconBg="hsla(216, 41%, 87%, 0.3)"
       style={{ marginBottom: '24px' }}
       headerRight={
