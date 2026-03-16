@@ -50,14 +50,7 @@ frontend/build/
 !.yarn/sdks
 !.yarn/versions
 
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-frontend/.env
-backend/.env
+
 
 # OS-specific files
 .DS_Store
@@ -77,17 +70,4 @@ ehthumbs_vista.db
 .project
 .settings/
 
-# Model artifacts, Data, and Generated Files
-models/
-figures/
-data/
-*.csv
-*.pkl
-*.model
-*.h5
-tmp_*/
-output.csv
-inputs.csv
-raw_financials.csv
-debug*.log
-*.log
+

@@ -1,0 +1,10 @@
+X1
+X2
+X3
+X4
+X5
+OCF_TA
+Interest_Coverage
+Debt_Assets
+Repo_Rate
+Leverage_Repo
