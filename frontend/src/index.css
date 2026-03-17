@@ -34,6 +34,7 @@ body,
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -44,6 +45,7 @@ body {
   animation: gradientBG 15s ease infinite;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
 }
 
 @keyframes gradientBG {

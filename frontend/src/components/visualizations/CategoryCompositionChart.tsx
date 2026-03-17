@@ -21,13 +21,13 @@ type Props = {
 const RISK_TIERS = [
   { max: 0.2, label: 'Very Safe' },
   { max: 0.4, label: 'Low Risk' },
-  { max: 0.6, label: 'Moderate' },
+  { max: 0.6, label: 'Moderate Risk' },
   { max: 0.8, label: 'High Risk' },
-  { max: 1.01, label: 'Severe' },
+  { max: 1.01, label: 'Severe Risk' },
 ]
 
 function getCategory(prob: number) {
-  return RISK_TIERS.find((t) => prob < t.max)?.label ?? 'Severe'
+  return RISK_TIERS.find((t) => prob < t.max)?.label ?? 'Severe Risk'
 }
 
 export function CategoryCompositionChart({ data }: Props) {

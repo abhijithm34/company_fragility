@@ -9,7 +9,7 @@ type Props = {
   hideCompany?: boolean // Useful for Company Analytics page where it's locked to one company
 }
 
-const RISK_TIERS = ['Low Risk', 'Medium Risk', 'High Risk', 'Severe Risk']
+import { RISK_CATEGORIES } from './RiskCategoryBadge'
 
 export function FilterPanel({ availableCompanies = [], availableQuarters = [], hideCompany = false }: Props) {
   const { filters, setFilters, clearFilters } = useFilters()
@@ -102,7 +102,7 @@ export function FilterPanel({ availableCompanies = [], availableQuarters = [], h
         <div className="ca-filter-group" style={{ flex: '1.5' }}>
           <span className="ca-filter-label">Risk Categories</span>
           <div className="ca-filter-checkboxes">
-            {RISK_TIERS.map(tier => (
+            {RISK_CATEGORIES.map(tier => (
               <label key={tier} className="ca-filter-checkbox-label">
                 <input 
                   type="checkbox" 
