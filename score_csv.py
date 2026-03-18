@@ -46,6 +46,7 @@ RAW_COLS = [
     "Retained_Earnings",
     "Current_Assets",
     "Current_Liabilities",
+    "RBI_Repo_Rate",
 ]
 
 DEFAULT_REPO_RATE = 5.0
@@ -85,8 +86,12 @@ def ensure_features(df: pd.DataFrame) -> pd.DataFrame:
     ie = out["Interest_Expense"].replace(0, np.nan)
     out["Interest_Coverage"] = out["EBIT"] / ie
     out["Debt_Assets"] = (out["Short_Term_Debt"] + out["Long_Term_Debt"]) / ta.replace(0, np.nan)
-    out["Repo_Rate"] = DEFAULT_REPO_RATE
-    out["Leverage_Repo"] = out["Debt_Assets"] * (DEFAULT_REPO_RATE / 10.0)
+    # Use real repo rate from input if available, else fall back to default
+    if "RBI_Repo_Rate" in out.columns:
+        out["Repo_Rate"] = out["RBI_Repo_Rate"]
+    else:
+        out["Repo_Rate"] = DEFAULT_REPO_RATE
+    out["Leverage_Repo"] = out["Debt_Assets"] * (out["Repo_Rate"] / 10.0)
     out["Leverage_Repo"] = out["Leverage_Repo"].fillna(DEFAULT_LEVERAGE_REPO)
 
     # Drop any rows where features could not be computed

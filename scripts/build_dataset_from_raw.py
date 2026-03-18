@@ -16,14 +16,13 @@ RAW_COLS = [
     "Company", "Quarter", "Sales", "Total_Assets", "Total_Liabilities",
     "Short_Term_Debt", "Long_Term_Debt", "EBIT", "Interest_Expense",
     "Operating_Cash_Flow", "Market_Cap", "Retained_Earnings",
-    "Current_Assets", "Current_Liabilities",
+    "Current_Assets", "Current_Liabilities", "RBI_Repo_Rate",
 ]
 
 OUTPUT_DIR = PROJECT_ROOT / "data" / "processed"
 OUTPUT_FILE = OUTPUT_DIR / "feature_dataset_from_raw.csv"
 
-# Defaults when macro not in raw
-DEFAULT_REPO_RATE = 5.0
+# Fallback only used when Leverage_Repo is NaN after computation
 DEFAULT_LEVERAGE_REPO = 1.5
 
 
@@ -41,8 +40,8 @@ def build_features_at_t(df: pd.DataFrame) -> pd.DataFrame:
     ie = out["Interest_Expense"].replace(0, np.nan)
     out["Interest_Coverage"] = out["EBIT"] / ie
     out["Debt_Assets"] = (out["Short_Term_Debt"] + out["Long_Term_Debt"]) / ta.replace(0, np.nan)
-    out["Repo_Rate"] = DEFAULT_REPO_RATE
-    out["Leverage_Repo"] = out["Debt_Assets"] * (DEFAULT_REPO_RATE / 10.0)
+    out["Repo_Rate"] = out["RBI_Repo_Rate"]
+    out["Leverage_Repo"] = out["Debt_Assets"] * (out["Repo_Rate"] / 10.0)
     out["Leverage_Repo"] = out["Leverage_Repo"].fillna(DEFAULT_LEVERAGE_REPO)
     return out
 
