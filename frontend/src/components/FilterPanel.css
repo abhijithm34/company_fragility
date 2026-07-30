@@ -1,0 +1,155 @@
+/* ── Filter Panel Styles ───────────────────────────── */
+
+.ca-filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.ca-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.ca-filter-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ca-ink-700);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Slider Customization */
+.ca-filter-slider {
+  width: 100%;
+  appearance: auto;
+  accent-color: var(--ca-danger);
+  margin-top: 4px;
+}
+
+/* Checkbox Toggles */
+.ca-filter-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ca-filter-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ca-ink-800);
+  background: var(--ca-base);
+  border: 1px solid var(--ca-border-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.ca-filter-checkbox-label:hover {
+  border-color: var(--ca-ink-400);
+}
+
+.ca-filter-checkbox-label input:checked + span {
+  font-weight: 600;
+  color: var(--ca-link);
+}
+
+.ca-filter-checkbox-label:has(input:checked) {
+  border-color: var(--ca-link);
+  background: hsla(243, 93%, 67%, 0.05);
+}
+
+/* Text forms */
+.ca-filter-form {
+  display: flex;
+  gap: 8px;
+}
+
+.ca-filter-input {
+  flex: 1;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--ca-border-color);
+  font-size: 0.875rem;
+  min-width: 0;
+}
+
+.ca-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ca-filter-tag {
+  background: var(--ca-partition);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--ca-border-color);
+}
+
+.ca-filter-tag span {
+  font-weight: 600;
+  color: var(--ca-ink-900);
+}
+
+.ca-filter-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 2px;
+  color: var(--ca-ink-700);
+  font-size: 0.875rem;
+}
+
+.ca-filter-tag button:hover {
+  color: var(--ca-danger);
+}
+
+.ca-filter-clear-all {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--ca-link);
+  padding: 2px 4px;
+}
+
+.ca-filter-clear-all:hover {
+  text-decoration: underline;
+}
+
+.ca-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ca-filter-reset-btn {
+  font-size: 0.75rem;
+  color: var(--ca-ink-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.ca-filter-reset-btn:hover {
+  background: var(--ca-partition);
+  color: var(--ca-ink-900);
+}

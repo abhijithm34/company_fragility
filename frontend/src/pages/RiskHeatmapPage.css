@@ -1,0 +1,102 @@
+/* ── Heatmap Component Styles ────────────────────────── */
+
+.ca-heatmap-container {
+  overflow-x: auto;
+  border-radius: var(--ca-card-radius);
+  border: 1.5px solid var(--ca-border-color);
+  background: var(--ca-base);
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.ca-heatmap-grid {
+  display: grid;
+  width: max-content;
+  min-width: 100%;
+}
+
+.ca-heatmap-cell {
+  padding: 10px 12px;
+  font-size: 0.8125rem;
+  text-align: center;
+  border-right: 1px solid var(--ca-border-color);
+  border-bottom: 1px solid var(--ca-border-color);
+  cursor: default;
+  position: relative;
+}
+
+.ca-heatmap-cell:last-child {
+  border-right: none;
+}
+
+.ca-heatmap-row {
+  display: contents;
+}
+
+.ca-heatmap-row:last-child > .ca-heatmap-cell {
+  border-bottom: none;
+}
+
+.ca-heatmap-header.ca-heatmap-cell {
+  background: var(--ca-partition);
+  font-weight: 600;
+  color: var(--ca-ink-700);
+  border-bottom: 1.5px solid var(--ca-border-color);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.ca-heatmap-company-cell {
+  background: var(--ca-base);
+  font-weight: 600;
+  color: var(--ca-ink-900);
+  text-align: left;
+  border-right: 1.5px solid var(--ca-border-color);
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.ca-heatmap-header.ca-heatmap-company-cell {
+  z-index: 3;
+}
+
+.ca-heatmap-company-cell a:hover {
+  text-decoration: underline !important;
+  color: var(--ca-link) !important;
+}
+
+.ca-heatmap-value-cell {
+  font-family: var(--ca-font-mono);
+  transition: opacity 0.2s ease, outline 0.1s;
+}
+
+.ca-heatmap-value-cell:hover {
+  opacity: 0.9;
+  outline: 2px solid var(--ca-ink-900);
+  outline-offset: -2px;
+  z-index: 4;
+}
+
+.ca-heatmap-empty {
+  background: hsla(216, 41%, 87%, 0.1) !important;
+  color: var(--ca-ink-600);
+}
+
+.ca-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: var(--ca-margin-medium);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ca-ink-700);
+}
+
+.ca-heatmap-legend-gradient {
+  width: 250px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, hsl(89, 89%, 38%), hsl(22, 90%, 55%), hsl(0, 89%, 63%));
+}

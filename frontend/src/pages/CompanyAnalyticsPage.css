@@ -1,0 +1,388 @@
+/* ═══════════════════════════════════════════════════════
+   Company Analytics — TradingView-inspired Design
+   Clean, data-dense, expandable chart panels
+   ═══════════════════════════════════════════════════════ */
+
+.tv-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Top Bar (Company header) ── */
+.tv-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  gap: 16px;
+}
+
+.tv-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tv-back-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  transition: all 0.15s;
+}
+
+.tv-back-link:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.tv-company-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.tv-company-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.tv-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.tv-risk-badge {
+  padding: 4px 10px;
+  border: 1.5px solid;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tv-prob-display {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: -0.03em;
+}
+
+/* ── Controls Bar ── */
+.tv-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tv-time-selector {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-tertiary);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.tv-time-btn {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  letter-spacing: 0.02em;
+}
+
+.tv-time-btn:hover {
+  color: var(--text-primary);
+  background: white;
+}
+
+.tv-time-btn.active {
+  color: white;
+  background: var(--accent-primary);
+  box-shadow: 0 1px 3px rgba(99, 91, 255, 0.3);
+}
+
+.tv-controls-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Charts Grid ── */
+.tv-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tv-charts-grid.tv-charts-single {
+  grid-template-columns: 1fr;
+}
+
+/* ── Individual Chart Section ── */
+.tv-chart-section {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.tv-chart-section:hover {
+  border-color: #c7d2fe;
+}
+
+.tv-chart-expanded {
+  grid-column: 1 / -1;
+}
+
+.tv-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.1s;
+  user-select: none;
+}
+
+.tv-chart-header:hover {
+  background: var(--bg-tertiary);
+}
+
+.tv-chart-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tv-chart-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 1px;
+  display: block;
+}
+
+.tv-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tv-expand-btn:hover {
+  background: var(--accent-subtle);
+  color: var(--accent-primary);
+}
+
+.tv-chart-body {
+  padding: 12px 8px 8px;
+}
+
+.tv-chart-body-expanded {
+  padding: 16px 12px 12px;
+}
+
+/* ── Tooltip ── */
+.tv-tooltip {
+  background: white;
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+}
+
+.tv-tooltip-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.tv-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.tv-tooltip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tv-tooltip-name {
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.tv-tooltip-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Risk Factors Panel ── */
+.tv-factors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.tv-factors-col {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.tv-factors-title {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tv-factors-danger {
+  color: var(--danger);
+}
+
+.tv-factors-safe {
+  color: var(--success);
+}
+
+.tv-factors-icon {
+  font-size: 10px;
+}
+
+.tv-factors-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tv-factors-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 12px;
+}
+
+.tv-factors-list li:last-child {
+  border-bottom: none;
+}
+
+.tv-factor-name {
+  color: var(--text-secondary);
+}
+
+.tv-factor-val {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.tv-danger {
+  color: var(--danger);
+}
+
+.tv-safe {
+  color: var(--success);
+}
+
+.tv-factors-empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── Loading / Error ── */
+.tv-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.tv-error {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.tv-error h3 {
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+
+.tv-error p {
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .tv-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tv-factors {
+    grid-template-columns: 1fr;
+  }
+
+  .tv-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tv-topbar-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
